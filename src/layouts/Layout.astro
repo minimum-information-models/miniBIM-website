@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import "../styles/global.css"
+import Link from "../components/Link.astro";
+import Container from "../components/Container.astro";
+---
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/logos/minigim.svg"/>
+    <meta name="generator" content={Astro.generator}/>
+    <title>MiniBIM - De nationale standaard voor digitale samenwerking in de woningbouw</title>
+</head>
+<body>
+<slot/>
+<footer class="contour-background">
+    <Container>
+        <div class="entries">
+            <div class="entry muted">
+                <strong>Beheer & contact:</strong>
+                <ul>
+                    <li>
+                        Commissie Digitalisering NEPROM
+                        <Link href="mailto:digitalisering@neprom.nl">digitalisering@neprom.nl</Link>
+                    </li>
+                </ul>
+                <strong>Voor directe vragen:</strong>
+                <ul>
+                    <li>
+                        Pim van Meer
+                        <Link href="mailto:p.vanmeer@vorm.nl">p.vanmeer@vorm.nl</Link>
+                    </li>
+                    <li>
+                        Paul Strokap
+                        <Link href="mailto:p.strokap@vorm.nl">p.strokap@vorm.nl</Link>
+                    </li>
+                </ul>
+            </div>
+            <div class="entry muted">
+                <ul>
+                    <li><Link href="/privacyverklaring/">Privacyverklaring</Link></li>
+                    <li><Link href="/gebruiksvoorwaarden/">Gebruikersvoorwaarden</Link></li>
+                </ul>
+            </div>
+        </div>
+        <hr/>
+        <div class="row justify-content-center">
+            <div class="muted" style="text-align: center">
+                In samenwerking met<br/>
+                <a href="https://bimsentry.com" target="_blank">
+                    <Image src="https://bimsentry.com/static/logo-wide@2x.png" alt="BIMsentry.com" width="118" height="22"/>
+                </a>
+            </div>
+        </div>
+    </Container>
+</footer>
+</body>
+</html>

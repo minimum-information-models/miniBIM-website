@@ -1,0 +1,513 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NewsletterSignup from "../components/NewsletterSignup.astro";
+import LinkButton from "../components/LinkButton.astro";
+import Link from "../components/Link.astro";
+import Navbar from "../components/Navbar.astro";
+import Container from "../components/Container.astro";
+import {Image} from "astro:assets";
+---
+<style>
+    .banner {
+        width: 100%;
+        height: 420px;
+        background-image: url('/images/header.jpeg');
+        background-position: top center;
+        background-repeat: repeat-x;
+        background-size: 1360px 400px;
+    }
+
+    section.hero {
+        padding: 7rem 0 12rem 0;
+
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 4.0rem;
+            font-weight: 800;
+            letter-spacing: -0.1rem;
+
+            margin-bottom: 1.8rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+
+            margin-bottom: 4.5rem;
+            line-height: 2.0rem;
+        }
+
+        p {
+            font-size: 1.3rem;
+            line-height: 2.2rem;
+            color: var(--gray);
+        }
+
+        strong {
+            color: var(--black);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media only screen and (max-width: 800px) {
+            padding: 2rem 0 3rem 0;
+
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+    section.model {
+        padding: 0;
+
+        canvas {
+            width: 100%;
+            display: block;
+            max-width: 2200px;
+            aspect-ratio: 2.0;
+            margin: 7rem auto -5rem auto;
+            background-color: white;
+        }
+
+        @media only screen and (max-width: 1250px) {
+            canvas {
+                margin: 8rem auto -5rem auto;
+                aspect-ratio: 1.5;
+            }
+        }
+
+        @media only screen and (max-width: 1000px) {
+            canvas {
+                margin: 8rem auto -5rem auto;
+                aspect-ratio: 1.2;
+            }
+        }
+
+        @media only screen and (max-width: 700px) {
+            canvas {
+                margin: 10rem auto -5rem auto;
+                aspect-ratio: 1.0;
+                padding-top: 4rem;
+            }
+        }
+    }
+
+    .steps-bar {
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--gray-light);
+        border-radius: 0.5rem;
+        overflow-x: scroll;
+        box-shadow: var(--shadow);
+        background-color: white;
+
+        display: flex;
+        flex-direction: row;
+        gap: 0;
+
+        li {
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 1.2rem 1.6rem;
+
+            &:not(:first-child) {
+                border-left: 1px solid var(--gray-lighter);
+            }
+
+            h1 {
+                font-size: 0.8rem;
+                line-height: 1.4em;
+                text-align: center;
+                height: 2.5em;
+            }
+
+            svg {
+                width: 100%;
+            }
+
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+        }
+
+        @media only screen and (max-width: 800px) {
+            li {
+                padding: 0.3rem 0.4rem;
+
+                h1 {
+                    font-size: 0.6rem;
+                }
+            }
+        }
+    }
+
+    strong {
+        font-weight: 700;
+        color: var(--black);
+        text-decoration: underline;
+        text-decoration-color: var(--red);
+        text-decoration-thickness: 3px;
+    }
+</style>
+<Layout>
+    <Navbar slideIn={true}/>
+    <div class="banner"></div>
+    <section class="hero">
+        <Container>
+            <div class="text">
+                <h1>MiniBIM</h1>
+                <h2>De nationale standaard voor digitale samenwerking in de woningbouw</h2>
+                <p>Met MiniBIM wordt ruimtelijke informatie eenduidig vastgelegd. Daardoor kunnen ontwerpers, adviseurs
+                    en opdrachtgevers <strong>beter sturen op haalbaarheid, effici&euml;ntie en ruimtelijk programma
+                    van de afnemer.</strong> MiniBIM zorgt voor een duidelijke manier om ruimtelijke gegevens te
+                    verzamelen en uit te vragen in de SO-, VO- en DO-fase. Het sluit aan op Nederlandse regelgeving en
+                    op de informatiebehoefte van zowel ontwikkelaars als afnemers. Zo vormt het een stevige basis voor
+                    data-gedreven ontwerpkeuzes, vergroot het vertrouwen in de data en versnelt het gehele proces.</p>
+            </div>
+        </Container>
+    </section>
+    <section class="model">
+        <script>
+					import "../scripts/model.js";
+        </script>
+        <div class="model-controller-container">
+            <div class="model-controller">
+                <div class="top-bar">
+                    <input id="lod-left-button" class="chevron-button" type="button"
+                           onclick="document.getElementById('lod-slider').value = parseInt(document.getElementById('lod-slider').value) - 1"
+                           value="&lsaquo;"/>
+                    <div class="content">
+                        <h3 id="lod-header"></h3>
+                        <div id="lod-description"></div>
+                        <input style="display: none;" id="lod-slider" type="range" min="0" max="12" value="0"/>
+                    </div>
+                    <input id="lod-right-button" class="chevron-button" type="button"
+                           onclick="document.getElementById('lod-slider').value = parseInt(document.getElementById('lod-slider').value) + 1"
+                           value="&rsaquo;"/>
+                </div>
+                <div class="legend" id="lod-legend"></div>
+            </div>
+        </div>
+        <canvas id="canvas" class="model"></canvas>
+    </section>
+    <section>
+        <Container>
+            <h3>Wat is MiniBIM?</h3>
+            <p>MiniBIM &mdash; <i>Mini Bouw Informatie Model</i> &mdash; is de minimale, eenduidige projectinformatie
+                die nodig is voor vastgoedontwikkeling, helder weergegeven in 3D. Het biedt één digitale taal voor
+                beleid, ontwerp en uitvoering. Iedereen werkt met dezelfde basis, vanaf het eerste idee tot en met
+                realisatie.</p>
+            <p>De documentatie voor MiniBIM bestaat uit drie kernonderdelen:</p>
+            <ol>
+                <li>
+                    <h4>Deel A: Toelichting</h4>
+                    <p>De toelichting beschrijft hoe data moet worden ge&euml;xporteerd door architecten, hoe MiniBIM
+                        binnen de BIM basis ILS past, hoe georeferentie dient te worden gebruikt en hoe ruimtelijke en
+                        fysieke elementen zich onderling verhouden.</p>
+                </li>
+                <li>
+                    <h4>Deel B: Informatie Leverings Specificatie (ILS)</h4>
+                    <p>Dit document beschrijft primaire informatiebehoefte van ontwikkelaar en afnemer, als het gaat om
+                        projectontwikkeling en portefeuillesturing. Deze data moet aanwezig en volledig zijn in het
+                        ge&euml;xporteerde model, en hoe alle ruimtelijke en enkele fysieke elementen dienen te
+                        worden gemodelleerd.</p>
+                </li>
+                <li>
+                    <h4>Extra: IFC voorbeeld modellen</h4>
+                    <p>In deze verzameling vind je IFC-bestanden uit de SO- en VO-fases die als voorbeeld dienen voor
+                        modelleurs. Ze laten zien wat je met MiniBIM moet opleveren en hoe de data eruitziet na
+                        het exporteren.</p>
+                </li>
+            </ol>
+        </Container>
+    </section>
+    <section>
+        <Container>
+            <div class="entries">
+                <div class="entry">
+                    <p>
+                        <LinkButton href="/downloads/3.1/MiniBIM%20ILS%20v3.1%20-%20deel%20A.pdf" type="primary" download>
+                            Download de Toelichting (v3.1)
+                        </LinkButton>
+                    </p>
+                    <p>
+                        <LinkButton href="/downloads/3.1/MiniBIM%20ILS%20v3.1%20-%20deel%20B.xlsm" type="primary" download>
+                            Download de Informatie Leverings Specificatie (v3.1)
+                        </LinkButton>
+                    </p>
+                    <p>
+                        <LinkButton href="/downloads/3.1/MiniBIM%20v3.1%20-%20voorbeeld%20modellen.zip" download>
+                            Download de IFC voorbeeld modellen (v3.1)
+                        </LinkButton>
+                    </p>
+                    <p class="muted">Komende jaren zullen deze documenten verder ontwikkeld worden, in samenwerking met
+                        gemeenten, softwareleveranciers en gebiedsontwikkelaars. Updates verschijnen hier.</p>
+                </div>
+                <div class="entry">
+                    <NewsletterSignup id="landing"/>
+                </div>
+            </div>
+        </Container>
+    </section>
+    <section>
+        <Container>
+            <h3>Hoe werkt MiniBIM?</h3>
+            <p>
+                De MiniBIM ILS bouwt voort op de
+                <Link href="https://www.digigo.nu/ilsen-en-richtlijnen/bim-basis-ils/" target="_blank">BIM Basis ILS</Link>
+                en voegt gerichte afspraken toe voor de ruimtecomponent volgens de NEN-2580 in de SO-, VO-, en
+                DO-ontwikkelfasen. Op deze manier is de ruimte component van de BIM Basis ILS door de juiste
+                stakeholders ingevuld, met de minimale informatiebehoefte voor stakeholders.
+            </p>
+            <p>Ruimtelijke elementen zijn in de SO-fase cruciaal om te kunnen toetsen of het gevraagde programma is
+                verwerkt en of de businesscase haalbaar is. Het doel is minimale impact op modelleurs maar maximale
+                bruikbaarheid en uniformiteit van ruimtelijke data voor opdrachtgevers, adviseurs en
+                vergunningaanvragen in een vroeg stadium.
+            </p>
+            <br/>
+            <br/>
+        </Container>
+        <ul class="carousel">
+            <li class="item">
+                <img id="slide-1" src="/images/slide-1.png"/>
+                <label for="slide-1">MiniBIM sluit aan op bestaande standaarden en regelgeving, en faciliteert
+                    data-gedreven besluitvorming aan de hand van betrouwbare informatie.</label>
+            </li>
+            <li class="item">
+                <img id="slide-2" src="/images/slide-2.png"/>
+                <label for="slide-2">MiniBIM neemt plaats aan het begin van ontwerpproces en zorgt ervoor dat de
+                    verzamelde data in opeenvolgende fases (faal)kosten voorkomt, en ondersteuning geeft voor
+                    besluitvorming.</label>
+            </li>
+            <li class="item">
+                <img id="slide-3" src="/images/slide-3.png"/>
+                <label for="slide-3">MiniBIM geeft &mdash; samen met MiniGIM en BIMLegal &mdash; antwoord op
+                    beleidsmaatregels 9, 13 en 14.</label>
+            </li>
+            <li class="item">
+                <img id="slide-4" src="/images/slide-4.png"/>
+                <label for="slide-4">MiniBIM sluit goed aan op andere BIM-standaarden en kan in een vroeg stadium
+                    al antwoorden geven op vragen met betrekking tot concept ontwikkeling en de financi&euml;le
+                    casus.</label>
+            </li>
+            <li class="item">
+                <img id="slide-5" src="/images/slide-5.png"/>
+                <label for="slide-5">Ook sluit MiniBIM aan op de ILS WOCO van Aedes, en helpt met het aanleveren
+                    van informatie in latere stadia.</label>
+            </li>
+            <li class="item">
+                <img id="slide-6" src="/images/slide-6.png"/>
+                <label for="slide-6">Voor de ontwikkelaar, levert de architect de informatie aan gedurende het
+                    project, waarbij iedere fase een steeds uitgebreidere informatie behoefte heeft.</label>
+            </li>
+            <li class="item">
+                <img id="slide-7" src="/images/slide-7.png"/>
+                <label for="slide-7">Met de door de architect verzamelde informatie kan een ontwikkelaar al snel
+                    gericht sturen, en besluiten nemen op het gebied van o.a. opbrengsten, kostenraming, en
+                    duurzaamheid.</label>
+            </li>
+            <li class="item">
+                <img id="slide-8" src="/images/slide-8.png"/>
+                <label for="slide-8">Aan de hand van een ingangscontrole &mdash; zoals
+                    <Link href="https://bimsentry.com" target="_blank">BIMsentry.com</Link> &mdash; kan een architect
+                    controleren en aantonen dat is voldaan aan de gevraagde informatie behoefte. Zo weet de
+                    ontwikkelaar bij oplevering van de data dat deze compleet is en voldoet aan MiniBIM.</label>
+            </li>
+            <li class="item">
+                <img id="slide-9" src="/images/slide-9.png"/>
+                <label for="slide-9">Door MiniBIM te gebruiken heeft men aan het eind van de VO-fase al een
+                    BIM-model welke voldoet aan de kwaliteitseisen van de BIM Basis ILS.</label>
+            </li>
+            <li class="item">
+                <img id="slide-10" src="/images/slide-10.png"/>
+                <label for="slide-10">Geeft aan welke onderdelen van de BIM Basis ILS al zijn ingevuld door het
+                    gebruik van MiniBIM, en hoe MiniBIM zelf in het systeem van de BIM Basis ILS past.</label>
+            </li>
+            <li class="item">
+                <img id="slide-11" src="/images/slide-11.png"/>
+                <label for="slide-11">MiniBIM wordt vooral toegepast tijdens de SO-, VO-, en DO-fases.</label>
+            </li>
+            <li class="item">
+                <img id="slide-12" src="/images/slide-12.png"/>
+                <label for="slide-12">MiniBIM is afgestemd op andere initiatieven in het DSGO &mdash;
+                    <i>Digitaal Stelsel Gebouwde Omgeving</i></label>
+            </li>
+            <li class="item">
+                <img id="slide-13" src="/images/slide-13.png"/>
+                <label for="slide-13">Door in een vroeg stadium data al betrouwbaar en compleet te hebben, geniet
+                    men van heel veel voordelen voor de rest van de duur van het project.</label>
+            </li>
+            <li class="item">
+                <img id="slide-14" src="/images/slide-14.png"/>
+                <label for="slide-14">MiniBIM adopteren? Laat ons hierbij helpen!</label>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <Container>
+            <h3>Waarom adopteren?</h3>
+            <p>MiniBIM is een laagdrempelige oplossing om BIM-data te gebruiken, en te delen binnen projecten. Het
+                vereenvoudigt de toegang tot bouwinformatie, bevordert transparante samenwerking tussen stakeholders
+                en helpt tijd en kosten te besparen door in een vroeg stadium fouten en miscommunicatie te voorkomen.
+            </p>
+            <p>MiniBIM:</p>
+            <ul>
+                <li><strong>Verlaagt (faal)kosten</strong> door datakwaliteit vanaf het begin te prioriteren,
+                    met <strong>minder aanpassingen in latere stadia</strong> tot gevolg.
+                </li>
+                <li>Zorgt voor een <strong>verbeterde uitwisseling van data</strong> tussen partijen en
+                    disciplines, en zorgt voor <strong>verbeterde transparantie en besluitvorming</strong>.</li>
+                <li><strong>Helpt om projectkosten en opbrengsten in te schatten</strong> op basis van
+                    ruimtelijke data met een data-gedreven aanpak.</li>
+                <li><strong>Ondersteunt vergunningsaanvragen</strong> zoals de <i>OpgevingsPlanActiviteit (OPA)</i>
+                    en de <i>Technische Activiteit (WKB)</> &mdash; de ILS Ruimte voor vergunningen.
+                </li>
+                <li>Is afgestemd op <Link href="https://minigim.nl" target="_blank">MiniGIM</Link>, zijn
+                    samen onderleggers voor BIMLegal, en
+                    <strong>vormt het antwoord op beleidsmaatregel 9, 13, en 14</strong> van de DigiGO en DMI.
+                </li>
+                <li><strong>Sluit goed aan op andere standaarden</strong> zoals de
+                    <Link href="https://www.digigo.nu/ilsen-en-richtlijnen/bim-basis-ils/" target="_blank">BIM Basis
+                        ILS
+                    </Link>
+                    ,
+                    <Link href="https://www.digigo.nu/ilsen-en-richtlijnen/tools-voor-informatiemanagement/naa-k-t/"
+                          target="_blank">NAA.K.T.
+                    </Link>
+                    ,
+                    <Link href="https://www.digigo.nu/standaarden/nlsfb/" target="_blank">NL-SfB</Link>
+                    , en
+                    <Link href="https://www.digigo.nu/ilsen-en-richtlijnen/ils-ontwerp-en-engineering/" target="_blank">
+                        ILS O&E
+                    </Link>
+                    . MiniBIM is tevens de ruimte component van de
+                    <Link href="https://aedes.nl/datastandaarden/ils-woco-30" target="_blank">ILS WOCO</Link> van Aedes.
+                </li>
+            </ul>
+        </Container>
+    </section>
+    <section>
+        <Container>
+            <h3>Hoe verloopt het proces met MiniBIM?</h3>
+            <ol class="steps">
+                <li>Bepaal samen met alle stakeholders welke ruimtelijke informatie aanwezig zal zijn, vanaf welke
+                    ontwikkelfase van het project.
+                </li>
+                <li>Vul met deze informatie het Uitvoeringsplan in, en benoem voor iedere rol de verantwoordelijke
+                    persoon.
+                </li>
+                <li>De ontwerpmanager zorgt ervoor dat de ruimtelijke informatie (zoals die beschreven is in het
+                    Uitvoeringsplan) tijdig, zorgvuldig, en correct, iedere ontwikkelfase wordt toegevoegd.
+                </li>
+                <li>De BIM-co&ouml;rdinator maakt zelf geen wijzigingen aan het IFC-bestand, en laat het project pas
+                    naar de volgende fase gaan wanneer alle ruimtelijke informatie (zoals afgesproken in het
+                    Uitvoeringsplan) aanwezig en compleet is.
+                </li>
+            </ol>
+            <br/>
+            <ul class="steps-bar">
+                <li>
+                    <h1>Inventariseren</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-map-search">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M11 18l-2 -1l-6 3v-13l6 -3l6 3l6 -3v7.5" stroke="var(--red)"/>
+                        <path d="M9 4v13" stroke="var(--gray-light)"/>
+                        <path d="M15 7v5" stroke="var(--gray-light)"/>
+                        <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+                        <path d="M20.2 20.2l1.8 1.8"/>
+                    </svg>
+                </li>
+                <li>
+                    <h1>Uitvoeringsplan</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-checkup-list">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
+                              stroke="var(--red)"/>
+                        <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/>
+                        <path d="M9 14h.01"/>
+                        <path d="M9 17h.01"/>
+                        <path d="M12 16l1 1l3 -3"/>
+                    </svg>
+                </li>
+                <li>
+                    <h1>Ontwerpen &amp; toetsen</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-squares-selected">
+                        <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"/>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M8 10a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"
+                              stroke="var(--red)"/>
+                        <path d="M8 14.5l6.492 -6.492" stroke="var(--red)"/>
+                        <path d="M13.496 20l6.504 -6.504z" stroke="var(--red)"/>
+                        <path d="M8.586 19.414l10.827 -10.827" stroke="var(--red)"/>
+                    </svg>
+                </li>
+                <li>
+                    <h1>Verifi&euml;ren</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon icon-tabler icons-tabler-outline icon-tabler-messages">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10"/>
+                        <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" stroke="var(--red)"/>
+                    </svg>
+                </li>
+            </ul>
+        </Container>
+    </section>
+    <section>
+        <Container>
+            <h3>De beheerder van MiniBIM</h3>
+            <div style="margin-left: -30px; width: 440px; height: 102px">
+                <Image src="/logos/neprom.png" alt="NEPROM logo" width="352" height="102"/>
+            </div>
+            <p>
+                NEPROM is de brancheorganisatie van maatschappelijk betrokken project- en gebiedsontwikkelaars
+                in Nederland. NEPROM werkt met haar leden, en in nauwe samenwerking met de overheid en andere
+                partners, aan het ontwikkelen van de ruimte voor morgen. We zetten ons in voor het creëren van
+                duurzame en leefbare omgevingen, waar wonen, werken, recreatie, mobiliteit en natuur in
+                samenhang worden ontwikkeld. Wij geloven in samenwerking tussen markt, overheid en
+                maatschappelijke partners. Samen werken we aan integrale oplossingen voor opgaven zoals
+                klimaat, circulair bouwen, klimaatadaptatie, natuur-inclusiviteit en maatschappelijke
+                meerwaarde.
+            </p>
+            <p>
+                Onze leden houden zich aan hoge standaarden: integriteit, zorgvuldigheid en maatschappelijke
+                verantwoordelijkheid zijn kernwaarden. Wij stimuleren innovatie en kennisdeling, en zorgen
+                dat beleid én praktijk effectiever worden verbonden.
+            </p>
+            <p>
+                Iedere ontwikkelaar die professioneel opereert en zich wil inzetten voor een toekomstbestendige
+                inrichting van gebieden is welkom bij NEPROM. Samen bouwen we aan het Nederland van vandaag
+                &eacute;n morgen.
+            </p>
+            <p>
+                Het beheer van MiniBIM mag is zo opgezet dat partijen zoals Aedes, IVBN, VNG, G40, Bouwend Nederland
+                en BNA zo kunnen toetreden tot de beheer organisatie achter MiniBIM. MiniBIM afstemmen op de
+                verschillende standaarden, regelgevingen en belanghebbenden heeft veel tijd en moeite gekost, en om
+                die reden hebben we de ambitie om ten alle tijden af te stemmen op aanpalende initiatieven.
+            </p>
+            <p>
+                Meer weten?
+                <Link href="https://neprom.nl">Op onze website</Link>
+                vindt u meer informatie over onze rol, leden, beleidsprogramma’s en onze gedragscode.
+            </p>
+        </Container>
+    </section>
+
+</Layout>
