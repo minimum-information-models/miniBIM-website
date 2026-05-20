@@ -6,5 +6,5 @@
 
 # How to deploy changes to the website
 
-- You can make changes to the website by submitting changes to this repository.
+- You can propose changes to the website by submitting a Pull Request to this repository.
 - Once your changes are accepted and merged into the `master` branch of this repository, the website will automatically be updated within minutes.
